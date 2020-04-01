@@ -6,10 +6,18 @@ public class Player
 {
     private List<Card> Hand; 
     private string name;
-    public Player(string Name)
+    private int Id;
+
+    public int GetId()
+    {
+        return Id;
+    }
+
+    public Player(string Name,int id)
     {
         SetHand(new List<Card>());
         this.name=Name;
+        this.Id = id;
     }
 
     public List<Card> GetHand()

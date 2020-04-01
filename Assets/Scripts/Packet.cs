@@ -5,7 +5,7 @@ using System;
 
 public class Packet
 {
-    private List<Card> packetCard;
+    public List<Card> packetCard;
     public Packet(GameObject[] cardsAssets)
     {
         packetCard = new List<Card>();
@@ -42,14 +42,19 @@ public class Packet
     }
     public Card Pioche()
     {
-        int i = RandomNumber(0, packetCard.Count - 1);
+        int i = RandomNumber(1, packetCard.Count);
+        
         Card card = packetCard[i];
+        //Debug.Log("Int alea=" + i + "  id card sel=" + card.GetId());
         packetCard.Remove(card);
         return card;
     }
     private int RandomNumber(int min, int max)
     {
-        System.Random random = new System.Random();
-        return random.Next(min,max);
+        //System.Random random = new System.Random();
+        
+        //int alea = random.Next(min, max);
+        int alea= UnityEngine.Random.Range(min, max);
+        return alea;
     }
 }
