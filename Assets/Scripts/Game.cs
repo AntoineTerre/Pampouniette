@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Game : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class Game : MonoBehaviour
     private Card cardColor;
     private Card cardSymbole;
     private List<Card> PacketJeux;
+
+    private FuckAndPampouniette pCont;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,7 +25,7 @@ public class Game : MonoBehaviour
         PlaceCardStart();
         placeColorSymbole();
         DisableCard();
-
+        pCont = new FuckAndPampouniette(ListPlayer,currentPlayer) ;
     }
 
 
@@ -33,7 +36,6 @@ public class Game : MonoBehaviour
     }
     private void cardPlay()
     {
-        Card cardP = null;
         foreach(Player player in ListPlayer)
         {
             if (player.GetName() == currentPlayer)
@@ -49,38 +51,42 @@ public class Game : MonoBehaviour
                             PacketJeux.Add(card);
                             DisableOneCard(cardSymbole);
                             cardSymbole = card;
-                            placeNewSymbole();
-                            TestPampouniette();
-                            cardP = card;
+                            bool TestPamp=TestPampouniette();
+                            pCont.onFuckEvent(TestPamp);
                             break;
                         }
                     }
                 }
-                if (cardP != null)
+                if (cardSymbole != null)
                 {
-                   // player.GetHand().Remove(cardP);
+                   player.GetHand().Remove(cardSymbole);
+                   placeNewSymbole();
                 }
             }
-        }
-    }
-    private void TestPampouniette()
-    {
-        try
-        {
-            if (PacketJeux[PacketJeux.Count - 1].GetVal() == PacketJeux[PacketJeux.Count - 2].GetVal())
-            {
-                if (PacketJeux[PacketJeux.Count - 2].GetVal() == PacketJeux[PacketJeux.Count - 3].GetVal())
-                {
-                    if (PacketJeux[PacketJeux.Count - 3].GetVal() == PacketJeux[PacketJeux.Count - 4].GetVal())
-                    {
-                        Debug.Log("PAMPOUNIETTE");
-                    }
-                }
-            }
-        }catch(System.Exception e)
-        {
 
         }
+    }
+    private bool TestPampouniette()
+    {
+        if (PacketJeux.Count > 3)
+        {
+                if (PacketJeux[PacketJeux.Count - 1].GetVal() == PacketJeux[PacketJeux.Count - 2].GetVal())
+                {
+                    if (PacketJeux[PacketJeux.Count - 2].GetVal() == PacketJeux[PacketJeux.Count - 3].GetVal())
+                    {
+                        if (PacketJeux[PacketJeux.Count - 3].GetVal() == PacketJeux[PacketJeux.Count - 4].GetVal())
+                        {
+                            Debug.Log("PAMPOUNIETTE");
+                            return true;
+                        }
+                    }
+                }
+
+        }
+
+        return false;
+
+      
        
     }
     private void DisableCard()
@@ -103,8 +109,10 @@ public class Game : MonoBehaviour
         cardSymbole = packet.Pioche();
         PacketJeux = new List<Card>();
         PacketJeux.Add(cardSymbole);
-        
-        
+        CreateAllTextName();
+
+
+
     }
     private void placeColorSymbole()
     {
@@ -130,14 +138,26 @@ public class Game : MonoBehaviour
             if (NbrCard > 7) {
                 NbrCard = 7;
             }
+            Player curPlayer= new Player(currentPlayer, 0);
+            for (int j = 0; j < NbrCard; j++)
+            {
+                curPlayer.AddCard(packet.Pioche());
+            }
+            ListPlayer.Add(curPlayer);
+            int jou = 0;
             for (int i = 0; i < NomberPlayer; i++)
             {
-                Player newPlayer = new Player(ListNamePlayer[i],i);
-                for (int j = 0; j < NbrCard; j++)
+                if(currentPlayer!= ListNamePlayer[i])
                 {
-                    newPlayer.AddCard(packet.Pioche());
+                    Player newPlayer = new Player(ListNamePlayer[i], jou+1);
+                    for (int j = 0; j < NbrCard; j++)
+                    {
+                        newPlayer.AddCard(packet.Pioche());
+                    }
+                    ListPlayer.Add(newPlayer);
+                    jou++;
                 }
-                ListPlayer.Add(newPlayer);
+                
             }
         }
         else
@@ -173,6 +193,7 @@ public class Game : MonoBehaviour
         if (nbrsPlayer == 2)
         {
             placeBackcardHandUp(NbrsCard);
+
         }
         else if (nbrsPlayer == 3)
         {
@@ -202,14 +223,118 @@ public class Game : MonoBehaviour
             Debug.Log("Too much Player");
         }
     }
+    private void CreateAllTextName()
+    {
+        int nbrsPlayer = ListPlayer.Count;
+        int j = 0;
+        for(int i=0; i < nbrsPlayer; i++)
+        {
+            if(ListPlayer[i].GetName() != currentPlayer)
+            {
+                if (nbrsPlayer == 2)
+                {
+                    CreateTextName(ListPlayer[i].GetName(),-6f, 21f, -7f, 0f);
+                    
+                }
+                else if(nbrsPlayer == 3)
+                {
+                    if (j == 0)
+                    {
+                        CreateTextName(ListPlayer[i].GetName(), -45f, -6f, -7f, 90f);
+                        j++;
+                    }
+                    else
+                    {
+                        CreateTextName(ListPlayer[i].GetName(), -6f, 21f, -7f, 0f);
+                    }
+                }
+                else if (nbrsPlayer == 4)
+                {
+                    if (j == 0)
+                    {
+                        CreateTextName(ListPlayer[i].GetName(), -45f, -6f, -7f, 90f);
+                        j++;
+                    }else if (j == 1)
+                    {
+                        CreateTextName(ListPlayer[i].GetName(), -6f, 21f, -7f, 0f);
+                        j++;
+                    }
+                    else
+                    {
+                        CreateTextName(ListPlayer[i].GetName(), 45f, -6f, -7f, 90f);
+                    }
+                }
+                else if (nbrsPlayer == 5)
+                {
+                    if (j == 0)
+                    {
+                        CreateTextName(ListPlayer[i].GetName(), -45f, -6f, -7f, 90f);
+                        j++;
+                    }
+                    else if (j == 1)
+                    {
+                        CreateTextName(ListPlayer[i].GetName(), -36f, 21f, -7f, 0f);
+                        j++;
+                    }else if (j == 2)
+                    {
+                        CreateTextName(ListPlayer[i].GetName(), 31f, 21f, -7f, 0f);
+                        j++;
+                    }
+                    else
+                    {
+                        CreateTextName(ListPlayer[i].GetName(), 45f, -6f, -7f, 90f);
+                    }
+                }
+                else if (nbrsPlayer == 6)
+                {
+                    if (j == 0)
+                    {
+                        CreateTextName(ListPlayer[i].GetName(), -45f, -6f, -7f, 90f);
+                        j++;
+                    }
+                    else if (j == 1)
+                    {
+                        CreateTextName(ListPlayer[i].GetName(), -40f, 21f, -7f, 0f);
+                        j++;
+                    }
+                    else if (j == 2)
+                    {
+                        CreateTextName(ListPlayer[i].GetName(), -6f, 21f, -7f, 0f);
+                        j++;
+                    }else if(j==3){
+                        CreateTextName(ListPlayer[i].GetName(), 34f, 21f, -7f, 0f);
+                        j++;
+                    }
+                    else
+                    {
+                        CreateTextName(ListPlayer[i].GetName(), 45f, -6f, -7f, 90f);
+                    }
+                }
+            }
+        }
+    }
+    private void CreateTextName(string Name, float x, float y, float z, float angle)
+    {
+        GameObject newGO = new GameObject("myTextGO");
+        newGO.AddComponent<TextMesh>().text =Name;
+        newGO.transform.position = new Vector3(x,y,z) ;
+        newGO.transform.Rotate(0f, 0f, angle, Space.Self);
+        newGO.GetComponent<TextMesh>().characterSize = 3;
+        newGO.GetComponent<TextMesh>().color = new Color(1f,0f,0f,1f);
+        newGO.GetComponent<TextMesh>().fontStyle = FontStyle.Bold;
+        Font ArialFont = (Font)Resources.GetBuiltinResource(typeof(Font), "Arial.ttf");
+        newGO.GetComponent<TextMesh>().font = ArialFont;
+
+
+    }
     private void placeBackcardHandUp(int NbrsCard)
     {
         float posFirstCard = (float)(-NbrsCard * 2);
         for (int i = 0; i < NbrsCard; i++)
         {
             placeBackcard(posFirstCard + i * 4, 24f, (float)i,0f);
-
         }
+        
     }
     private void placeBackcardHandGauche(int NbrsCard)
     {
