@@ -118,9 +118,6 @@ public class Game : MonoBehaviour
         PacketJeux = new List<Card>();
         PacketJeux.Add(cardSymbole);
         CreateAllTextName();
-
-
-
     }
     private void placeColorSymbole()
     {

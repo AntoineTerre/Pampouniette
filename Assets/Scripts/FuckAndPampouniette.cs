@@ -200,8 +200,8 @@ public class FuckAndPampouniette
         PampounietteUI.SetActive(false);
         Pampouniette.SetActive(true);
         PampText.GetComponent<Text>().text = name;
-       
-        //Pampouniette.SetActive(false);
+       //ICI IL FAUT WAIT 
+        Pampouniette.SetActive(false);
         FuckPage();
 
     }
