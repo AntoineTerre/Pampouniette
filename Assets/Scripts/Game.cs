@@ -15,10 +15,13 @@ public class Game : MonoBehaviour
     private Card cardSymbole;
     private List<Card> PacketJeux;
 
+    private GameObject Compteur;
+
     private FuckAndPampouniette pCont;
     // Start is called before the first frame update
     void Start()
     {
+        Compteur = GameObject.Find("Compteur");
         packet=new Packet(cardsAssets);
         DistribuerCard();
         SetUpGame();
@@ -34,6 +37,10 @@ public class Game : MonoBehaviour
     {
         cardPlay();
     }
+    public List<Card> GetPacketJeux()
+    {
+        return PacketJeux;
+    }
     private void cardPlay()
     {
         foreach(Player player in ListPlayer)
@@ -47,11 +54,12 @@ public class Game : MonoBehaviour
                     {
                         if (card.GetColor() == cardColor.GetColor() || card.GetVal() == cardSymbole.GetVal())
                         {
-
+                            Compteur.GetComponent<EndGameControleur>().ResetDecompte();
                             PacketJeux.Add(card);
                             DisableOneCard(cardSymbole);
                             cardSymbole = card;
                             bool TestPamp=TestPampouniette();
+                            
                             pCont.onFuckEvent(TestPamp);
                             break;
                         }
