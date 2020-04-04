@@ -1108,7 +1108,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 576786289}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1749514770}
+        m_MethodName: RealStart
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &576786289
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2154,6 +2165,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d84d6524e8d90154db07e23a80d9b685, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  InputField: {fileID: 1096962362}
 --- !u!4 &1749514771
 Transform:
   m_ObjectHideFlags: 0
@@ -2430,7 +2442,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2033174164}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1749514770}
+        m_MethodName: QuickStart
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2033174164
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2485,7 +2508,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &2070806870
 MonoBehaviour:
   m_ObjectHideFlags: 0

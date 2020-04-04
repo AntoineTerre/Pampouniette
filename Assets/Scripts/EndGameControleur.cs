@@ -15,6 +15,7 @@ public class EndGameControleur : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
         compteur = GameObject.Find("Compteur");
         End = GameObject.Find("Fin");
         EndName = GameObject.Find("NameFin");

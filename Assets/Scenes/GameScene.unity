@@ -2695,7 +2695,6 @@ GameObject:
   m_Component:
   - component: {fileID: 563655941}
   - component: {fileID: 563655940}
-  - component: {fileID: 563655939}
   m_Layer: 0
   m_Name: Scripts
   m_TagString: Untagged
@@ -2703,18 +2702,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &563655939
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 563655938}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cdc04b8a17a39a44cb2fcc04010fdada, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &563655940
 MonoBehaviour:
   m_ObjectHideFlags: 0
