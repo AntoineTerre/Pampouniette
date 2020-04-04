@@ -157,11 +157,19 @@ public class StartManager : MonoBehaviourPunCallbacks
     private void changeName()
     {
         Dictionary<int, Photon.Realtime.Player> pList = Photon.Pun.PhotonNetwork.CurrentRoom.Players;
-        int i = 0;
+        int i = 1;
         foreach (KeyValuePair<int, Photon.Realtime.Player> p in pList)
         {
-            Empty[i].GetComponent<Text>().text = p.Value.NickName;
-            i++;
+            if (p.Value.IsMasterClient)
+            {
+                Empty[0].GetComponent<Text>().text = p.Value.NickName;
+            }
+            else
+            {
+                Empty[i].GetComponent<Text>().text = p.Value.NickName;
+                i++;
+            }
+           
 
         }
     }
