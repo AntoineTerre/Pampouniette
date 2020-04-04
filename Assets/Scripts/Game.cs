@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Photon.Pun;
+using Photon.Realtime;
 
 public class Game : MonoBehaviour
 {
@@ -21,6 +23,7 @@ public class Game : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //SetUpNameString();
         Compteur = GameObject.Find("Compteur");
         packet=new Packet(cardsAssets);
         DistribuerCard();
@@ -36,6 +39,18 @@ public class Game : MonoBehaviour
     void Update()
     {
         cardPlay();
+    }
+
+    private void SetUpNameString()
+    {
+        Dictionary<int, Photon.Realtime.Player> pList = Photon.Pun.PhotonNetwork.CurrentRoom.Players;
+        ListNamePlayer = new string[pList.Count];
+        int i = 0;
+        foreach (KeyValuePair<int, Photon.Realtime.Player> p in pList)
+        {
+            ListNamePlayer[i] = p.Value.NickName;
+            i++;
+        }
     }
     public List<Card> GetPacketJeux()
     {
