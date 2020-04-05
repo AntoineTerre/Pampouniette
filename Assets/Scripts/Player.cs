@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class Player 
 {
-    private List<Card> Hand; 
+    private List<Card> Hand;
+    public List<GameObject> CardHide;
     private string name;
     private int Id;
-
     public int GetId()
     {
         return Id;
@@ -15,6 +15,7 @@ public class Player
 
     public Player(string Name,int id)
     {
+        CardHide = new List<GameObject>();
         SetHand(new List<Card>());
         this.name=Name;
         this.Id = id;

@@ -36,6 +36,19 @@ MonoBehaviour:
   - DestroySpaceship
   - Fire
   - RespawnSpaceship
+  - SetCardOtherClient
+  - colorSymbole
+  - colorSymboleClient
+  - SendNewSymboleCardToOther
+  - ChangeFuckNameOther
+  - OnFuckOther
+  - OnPampOther
+  - OnPampSelect
+  - UnactivePamp
+  - RemoveBackCardFromPlayer
+  - ActiveEndToOther
+  - ResetDecompteOther
+  - DecomptePauseOther
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

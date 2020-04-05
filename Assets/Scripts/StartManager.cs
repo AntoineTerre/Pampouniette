@@ -28,6 +28,7 @@ public class StartManager : MonoBehaviourPunCallbacks
     private string _name;
     const string playerNamePrefKey = "PlayerName";
 
+
     private int RoomId;
     // Start is called before the first frame update
     void Start()

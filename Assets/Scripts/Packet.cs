@@ -45,15 +45,15 @@ public class Packet
         int i = RandomNumber(1, packetCard.Count);
         
         Card card = packetCard[i];
-        //Debug.Log("Int alea=" + i + "  id card sel=" + card.GetId());
         packetCard.Remove(card);
         return card;
     }
+    public void RemoveCard(Card card)
+    {
+        packetCard.Remove(card);
+    }
     private int RandomNumber(int min, int max)
     {
-        //System.Random random = new System.Random();
-        
-        //int alea = random.Next(min, max);
         int alea= UnityEngine.Random.Range(min, max);
         return alea;
     }
