@@ -9,10 +9,10 @@ public class EndGame : MonoBehaviourPunCallbacks
 {
     public void Reset()
     {
-        /*
+        
         if (PhotonNetwork.IsMasterClient)
         {
-            PhotonNetwork.LoadLevel("GameScene");
-        }*/
+            PhotonNetwork.LoadLevel("Start");
+        }
     }
 }

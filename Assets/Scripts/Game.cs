@@ -51,7 +51,7 @@ public class Game : MonoBehaviourPunCallbacks
         OtherFuck.SetActive(false);
 
         Pampouniette = GameObject.Find("Pampouniette");
-        PampText = GameObject.Find("NamePampou");
+        PampText = GameObject.Find("NamePamp");
         FuckName = GameObject.Find("Pseudo");
         cardNoDisable = new List<int>();
         cardNoDisable.Add(0);
@@ -133,7 +133,7 @@ public class Game : MonoBehaviourPunCallbacks
                             bool TestPamp=TestPampouniette();
                             photonViewGame.RPC("SendNewSymboleCardToOther", RpcTarget.Others, cardSymbole.GetId(), currentPlayer);
                             photonViewGame.RPC("RemoveBackCardFromPlayer", RpcTarget.Others,currentPlayer);
-                            pCont.onFuckEvent(TestPamp);
+                            pCont.onFuckEvent(TestPamp,ListPlayer) ;
                             cardPlayBool = true;
                             break;
                         }
@@ -163,6 +163,7 @@ public class Game : MonoBehaviourPunCallbacks
     [PunRPC]
     void OnPampSelect(string name,string namePlayPamp)
     {
+        OtherPamp.SetActive(false);
         Pampouniette.SetActive(true);
         PampText.GetComponent<Text>().text = name;
         namePlayPampGO.GetComponent<Text>().text = namePlayPamp;
@@ -335,8 +336,8 @@ public class Game : MonoBehaviourPunCallbacks
         if (NomberPlayer > 0)
         {
             int NbrCard = (int)(50 / NomberPlayer);
-            if (NbrCard > 7) {
-                NbrCard = 7;
+            if (NbrCard >= 8) {
+                NbrCard = 8;
             }
             for (int i = 0; i < NomberPlayer; i++)
             {    
@@ -434,22 +435,27 @@ public class Game : MonoBehaviourPunCallbacks
         AllCardInvisible();
         cardVisible(cardColor.GetCard());
         cardVisible(cardSymbole.GetCard());
-        int NbrsCard=ListPlayer[0].GetHand().Count;
+        int p = 0;
         foreach(Player player in ListPlayer)
         {
             if (player.GetName() == currentPlayer)
             {
+                int NbrsCard = ListPlayer[p].GetHand().Count;
                 float posFirstCard = (float)(-NbrsCard * 2);
+                
                 for (int i = 0; i < NbrsCard; i++)
                 {
                     GameObject cardSel = player.GetHand()[i].GetCard();
-                    cardSel.transform.position = new Vector3(posFirstCard + i * 4, -24f, -(float)i - 2f);
+                    cardSel.transform.position = new Vector3(posFirstCard + i * 4, -24f, 5-(float)i);
 
                     cardVisible(cardSel);
                 }
+                placeOtherPlayerCard(NbrsCard);
+                break;
             }
+            p++;
         }
-        placeOtherPlayerCard(NbrsCard);
+        
     }
     private void placeOtherPlayerCard(int NbrsCard)
     {

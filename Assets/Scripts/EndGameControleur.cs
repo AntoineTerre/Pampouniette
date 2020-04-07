@@ -10,13 +10,16 @@ public class EndGameControleur : MonoBehaviourPunCallbacks
     private PhotonView photonViewGame;
 
     private GameObject compteur;
-    private float decompte =60;
+    private float decompte =100;
 
     private GameObject End;
     private GameObject EndName;
     private GameObject EndShot;
 
-    private float decompteReset = 30;
+    private float decompteReset = 35;
+
+
+    private bool EndGameBool = false;
 
     // Start is called before the first frame update
     void Start()
@@ -32,12 +35,16 @@ public class EndGameControleur : MonoBehaviourPunCallbacks
     // Update is called once per frame
     void Update()
     {
-        updateDecompte();
-        updateCompteur();
-        if (PhotonNetwork.IsMasterClient)
+        if (!EndGameBool)
         {
-            EndPartyControleur();
+            updateDecompte();
+            updateCompteur();
+            if (PhotonNetwork.IsMasterClient)
+            {
+                EndPartyControleur();
+            }
         }
+        
             
     }
     public void DecomptePause()
@@ -89,6 +96,7 @@ public class EndGameControleur : MonoBehaviourPunCallbacks
         EndName.GetComponent<Text>().text = name;
         EndShot.GetComponent<Text>().text = "Tu bois " + nbrsShotInt + " shot !";
         photonViewGame.RPC("ActiveEndToOther", RpcTarget.Others);
+        EndGameBool = true;
     }
     [PunRPC]
     void ActiveEndToOther()

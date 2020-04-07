@@ -13,6 +13,7 @@ public class FuckAndPampouniette
     private GameObject End;
 
     private GameObject PampText;
+
     private GameObject PampContinue;
     private GameObject namePlayPampGO;
 
@@ -58,7 +59,7 @@ public class FuckAndPampouniette
         FuckUI.SetActive(false);
         PampounietteUI=GameObject.Find("UIPampouniette");
         PampounietteUI.SetActive(false);
-        PampText = GameObject.Find("NamePampou");
+        PampText = GameObject.Find("NamePamp");
         Pampouniette = GameObject.Find("Pampouniette");
         Pampouniette.SetActive(false);
         End = GameObject.Find("Fin");
@@ -249,6 +250,7 @@ public class FuckAndPampouniette
         PampounietteUI.SetActive(false);
         Pampouniette.SetActive(true);
         PampText.GetComponent<Text>().text = name;
+        namePlayPampGO.GetComponent<Text>().text = currentPlayer;
         photonViewGame.RPC("OnPampSelect", RpcTarget.Others, name, currentPlayer);
     }
 
@@ -263,9 +265,24 @@ public class FuckAndPampouniette
         Compteur.GetComponent<EndGameControleur>().ResetDecompte();
     }
     
-    public void onFuckEvent(bool Pampouniette)
+    public void onFuckEvent(bool Pampouniette,List<Player> listPlayer)
     {
-        
+        for(int i=0;i<listPampButtonActive.Count;i++)
+        {
+            GameObject b = listPampButtonActive[i];
+            string name=b.GetComponentsInChildren<Text>()[0].text;
+            foreach(Player p in listPlayer)
+            {
+                if (p.GetName() == name)
+                {
+                    if (p.GetHand().Count == 0)
+                    {
+                        b.SetActive(false);
+                        listButtonActive.Remove(b);
+                    }
+                }
+            }
+        }
         if (Pampouniette)
         {
             PampPage();

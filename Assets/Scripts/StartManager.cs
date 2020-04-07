@@ -33,6 +33,10 @@ public class StartManager : MonoBehaviourPunCallbacks
     // Start is called before the first frame update
     void Start()
     {
+        if (PhotonNetwork.IsConnected)
+        {
+            PhotonNetwork.Disconnect();
+        }
         setDefaultName();
         ButtonStart1 = GameObject.Find("ButtonStart1");
         ButtonStart1.SetActive(false);
@@ -127,6 +131,7 @@ public class StartManager : MonoBehaviourPunCallbacks
             }
             else
             {
+                PhotonNetwork.CurrentRoom.IsOpen = false;
                 PhotonNetwork.LoadLevel("GameScene");
             }
             
